@@ -1,0 +1,73 @@
+tosca_definitions_version: alien_dsl_1_4_0
+
+template_name: cassandra-type
+template_version: 1.4.0-SNAPSHOT
+template_author: alien4cloud
+
+imports:
+  - tosca-normative-types:1.0.0-ALIEN14
+
+description: Cassandra NoSQL installation on a specific mounted volume path. TODO use dependencies to volume to make it more TOSCA
+
+node_types:
+
+  xyz.hueneburg.nodes.Cassandra:
+    derived_from: tosca.nodes.Database
+    description: >
+      A node to install Cassandra 311x database with data
+      on a specific attached volume.
+    requirements:
+      - host:
+          capability: tosca.capabilities.Container
+          node: tosca.nodes.Compute
+          relationship: tosca.relationships.HostedOn
+          occurrences: [1, 1]
+          node_filter:
+            capabilities:
+              - tosca.capabilities.OperatingSystem:
+                  properties:
+                    - type: { equal: linux }
+                    - architecture: { equal: x86_64 }
+                    - distribution: { valid_values: [ ubuntu ] }
+    capabilities:
+      database_endpoint:
+        type: xyz.hueneburg.capabilities.CassandraDatabaseEndpoit
+    tags:
+      icon: /images/index.jpg
+    properties:
+      name:
+        type: string
+        required: true
+        description: The logical name of the database cluster.
+      amount:
+        type: string
+        required: true
+        default: 1
+        description: The number of nodes that should be created.
+      entrypoint:
+        type: string
+        required: false
+        description: If you are scaling up, set this variable to one address of already existing nodes. It is a comma separated list.
+    interfaces:
+      Standard:
+        create:
+          implementation: scripts/install_cassandra.sh
+        configure: 
+          inputs:
+            CLUSTER_NAME: { get_property: [SELF, name] }
+          implementation: scripts/configure_cassandra.sh
+        start:
+          implementation: scripts/start_cassandra.sh
+        scale_up:
+          inputs:
+            CLUSTER_NAME: { get_property: [SELF, name] }
+            ENTRYPOINT: { get_property: [SELF, entrypoint] }
+          implementation: scripts/scale_up_cassandra.sh
+        scale_down:
+          implementation: scripts/scale_down_cassandra.sh
+
+
+
+capability_types:
+  xyz.hueneburg.capabilities.CassandraDatabaseEndpoit:
+      derived_from: tosca.capabilities.Endpoint.Database
