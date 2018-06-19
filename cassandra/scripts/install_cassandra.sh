@@ -14,6 +14,6 @@ gpg --export --armor 2B5C1B00 | sudo apt-key add -
 gpg --keyserver pgp.mit.edu --recv-keys 0353B12C
 gpg --export --armor 0353B12C | sudo apt-key add -
 sudo apt-get update
-sudo apt-get install -y cassandra
+sudo apt-get install -y --force-yes cassandra
 
 echo "Cassandra Installation complete."
