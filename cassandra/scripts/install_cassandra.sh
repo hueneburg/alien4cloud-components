@@ -8,7 +8,10 @@
 #done
 
 # http://yum.postgresql.org/9.5/redhat/rhel-7-x86_64/pgdg-centos95-9.5-2.noarch.rpm
-sudo apt-get install openjdk-8-jdk
+sudo apt-get install software-properties-common
+sudo add-apt-repository ppa:openjdk-r/ppa
+sudo apt-get update
+sudo apt-get install -y openjdk-8-jdk
 echo "deb http://www.apache.org/dist/cassandra/debian 311x main" | sudo tee -a /etc/apt/sources.list.d/cassandra.sources.list
 echo "deb-src http://www.apache.org/dist/cassandra/debian 311x main" | sudo tee -a /etc/apt/sources.list.d/cassandra.sources.list
 gpg --keyserver pgp.mit.edu --recv-keys F758CE318D77295D
@@ -20,4 +23,4 @@ gpg --export --armor 0353B12C | sudo apt-key add -
 sudo apt-get update
 sudo apt-get install cassandra
 
-echo "PostgreSQL Installation complete."
+echo "Cassandra Installation complete."
