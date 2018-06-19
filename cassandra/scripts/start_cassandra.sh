@@ -1,4 +1,4 @@
 #!/bin/bash
 
-sudo systemctl start cassandra
+sudo service cassandra start
 
