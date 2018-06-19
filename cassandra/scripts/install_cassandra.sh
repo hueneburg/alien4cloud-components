@@ -1,15 +1,8 @@
 #! /bin/bash
 
-
-# TODO find yum lock file. Maybe actually yum just makes the waiting itself .... 
-#while sudo fuser /var/lib/dpkg/lock >/dev/null 2>&1 ; do
-#  echo "$NAME waiting for other software managers to finish..."
-#  sleep 0.5
-#done
-
-# http://yum.postgresql.org/9.5/redhat/rhel-7-x86_64/pgdg-centos95-9.5-2.noarch.rpm
+sudo apt-get update
 sudo apt-get install -y software-properties-common
-sudo add-apt-repository ppa:openjdk-r/ppa
+sudo add-apt-repository -y ppa:openjdk-r/ppa
 sudo apt-get update
 sudo apt-get install -y openjdk-8-jdk
 echo "deb http://www.apache.org/dist/cassandra/debian 311x main" | sudo tee -a /etc/apt/sources.list.d/cassandra.sources.list
