@@ -8,7 +8,7 @@
 #done
 
 # http://yum.postgresql.org/9.5/redhat/rhel-7-x86_64/pgdg-centos95-9.5-2.noarch.rpm
-sudo apt-get install software-properties-common
+sudo apt-get install -y software-properties-common
 sudo add-apt-repository ppa:openjdk-r/ppa
 sudo apt-get update
 sudo apt-get install -y openjdk-8-jdk
@@ -21,6 +21,6 @@ gpg --export --armor 2B5C1B00 | sudo apt-key add -
 gpg --keyserver pgp.mit.edu --recv-keys 0353B12C
 gpg --export --armor 0353B12C | sudo apt-key add -
 sudo apt-get update
-sudo apt-get install cassandra
+sudo apt-get install -y cassandra
 
 echo "Cassandra Installation complete."
