@@ -1,7 +1,7 @@
 tosca_definitions_version: alien_dsl_1_4_0
 
 template_name: cassandra-type
-template_version: 1.4.11-SNAPSHOT
+template_version: 1.4.12-SNAPSHOT
 template_author: alien4cloud
 
 imports:
@@ -21,7 +21,7 @@ node_types:
           capability: tosca.capabilities.Container
           node: tosca.nodes.Compute
           relationship: tosca.relationships.HostedOn
-          occurrences: [1, 1]
+          occurrences: [1, 20]
           node_filter:
             capabilities:
               - tosca.capabilities.OperatingSystem:
@@ -39,11 +39,6 @@ node_types:
         type: string
         required: true
         description: The logical name of the database cluster.
-      amount:
-        type: string
-        required: true
-        default: 1
-        description: The number of nodes that should be created.
       entrypoint:
         type: string
         required: false
