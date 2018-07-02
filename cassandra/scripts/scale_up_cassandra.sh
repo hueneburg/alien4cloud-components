@@ -1,11 +1,11 @@
 #! /bin/bash
 
-CLUSTER=${clustername}
-ENTRY=${entrypoint}
+ENTRY=${ENTRYPOINT}
 
-sudo /etc/init.d/cassandra stop
-sed -i "s/Test Cluster/${CLUSTER}/g" /etc/cassandra/cassandra.yaml
-sed -i "s/SimpleSnitch/GossipingPropertyFileSnitch/g" /etc/cassandra/cassandra.yaml
-sed -i "s/127.0.0.1/$(hostname -i)/g" /etc/cassandra/cassandra.yaml
-sed -i "s/- seeds: .*/- seeds: \"$(hostname -i),${ENTRY}\"" /etc/cassandra/cassandra.yaml
+if [[ -z ${ENTRY} ]]; then
+  exit
+fi
 
+hostname=$(hostname -i | awk '{ print $1 }')
+
+sudo sed -i "s/- seeds: .*/- seeds: \"${ENTRY}\,${hostname}"/" /etc/cassandra/cassandra.yaml
