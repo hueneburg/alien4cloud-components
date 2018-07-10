@@ -1,6 +1,6 @@
 #! /bin/bash
 
-CLUSTER=${clustername}
+CLUSTER=${CLUSTER_NAME}
 
 hostname=$(hostname -i | awk '{ print $1 }')
 
