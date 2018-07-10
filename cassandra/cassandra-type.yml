@@ -1,7 +1,7 @@
 tosca_definitions_version: alien_dsl_1_4_0
 
 template_name: cassandra-type
-template_version: 1.4.14-SNAPSHOT
+template_version: 1.4.15-SNAPSHOT
 template_author: alien4cloud
 
 imports:
@@ -49,18 +49,18 @@ node_types:
           implementation: scripts/install_cassandra.sh
         configure: 
           inputs:
-            -CLUSTER_NAME: { get_property: [SELF, name] }
+            - CLUSTER_NAME: { get_property: [SELF, name] }
           implementation: scripts/configure_cassandra.sh
         start:
           implementation: scripts/start_cassandra.sh
         scale_up:
           inputs:
-            -CLUSTER_NAME: { get_property: [SELF, name] }
-            -ENTRYPOINT: { get_property: [SELF, entrypoint] }
+            - CLUSTER_NAME: { get_property: [SELF, name] }
+            - ENTRYPOINT: { get_property: [SELF, entrypoint] }
           implementation: scripts/scale_up_cassandra.sh
         scale_down:
           inputs:
-            -ENTRYPOINT: { get_property: [SELF, entrypoint] }
+            - ENTRYPOINT: { get_property: [SELF, entrypoint] }
           implementation: scripts/scale_down_cassandra.sh
 
 
