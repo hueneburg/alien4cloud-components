@@ -1,7 +1,7 @@
 tosca_definitions_version: alien_dsl_1_4_0
 
 template_name: cassandra-type
-template_version: 1.4.18-SNAPSHOT
+template_version: 1.4.19-SNAPSHOT
 template_author: alien4cloud
 
 imports:
