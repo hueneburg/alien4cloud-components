@@ -8,4 +8,4 @@ fi
 
 hostname=$(hostname -i | awk '{ print $1 }')
 
-sudo sed -i "s/- seeds: .*/- seeds: \"${ENTRY}\,${hostname}"/" /etc/cassandra/cassandra.yaml
+sudo sed -i -E "s/- seeds: .*/- seeds: \"${ENTRY}\,${hostname}"/" /etc/cassandra/cassandra.yaml
