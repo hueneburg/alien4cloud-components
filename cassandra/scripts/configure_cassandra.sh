@@ -2,7 +2,7 @@
 
 echo test >> ~/armin_install
 
-CLUSTER=${CLUSTER_NAME}
+CLUSTER=${name}
 
 hostname=$(hostname -i | awk '{ print $1 }')
 
@@ -11,6 +11,8 @@ sudo /etc/init.d/cassandra stop
 sudo rm -rf /var/lib/cassandra/data/*
 # Clean logs
 sudo rm -rf /var/log/cassandra/gc* /var/log/cassandra/system.log
+
+echo ${CLUSTER} >> ~/armin_install
 
 sudo sed -i -E "s/(Cassandra[ -])?Test[ -]Cluster/${CLUSTER}/Ig" /etc/cassandra/cassandra.yaml
 sudo sed -i "s/SimpleSnitch/GossipingPropertyFileSnitch/g" /etc/cassandra/cassandra.yaml
