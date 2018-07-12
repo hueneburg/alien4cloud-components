@@ -35,6 +35,6 @@ hostname=$(hostname -i | awk '{ print $1 }')
 
 echo hostname >> ~/armin_install
 
-sudo sed -i -E "s/- seeds: .*/- seeds: \"${ENTRY}\,${hostname}"/" /etc/cassandra/cassandra.yaml
+sudo sed -i -E "s/- seeds: .*/- seeds: \"${ENTRY}\,${hostname}"/" /etc/cassandra/cassandra.yaml 2>~/armin_error
 
 echo "done" >> ~/armin_install
