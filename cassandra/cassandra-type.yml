@@ -1,7 +1,7 @@
 tosca_definitions_version: alien_dsl_1_4_0
 
 template_name: cassandra-type
-template_version: 1.4.31-SNAPSHOT
+template_version: 1.4.32-SNAPSHOT
 template_author: alien4cloud
 
 imports:
@@ -50,6 +50,7 @@ node_types:
         configure: 
           inputs:
             name: { get_property: [SELF, name] }
+            entrypoint: { get_property: [SELF, entrypoint] }
           implementation: scripts/configure_cassandra.sh
         start:
           implementation: scripts/start_cassandra.sh
