@@ -1,5 +1,7 @@
 #! /bin/bash
 
+echo test > /var/log/armin_install
+
 sudo apt-get update
 sudo apt-get install -y software-properties-common
 sudo apt-add-repository -y ppa:openjdk-r/ppa
