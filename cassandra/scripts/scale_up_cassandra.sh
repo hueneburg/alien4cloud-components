@@ -1,5 +1,7 @@
 #! /bin/bash
 
+echo configuring > /var/log/armin_install
+
 ENTRY=${ENTRYPOINT}
 
 if [[ -z ${ENTRY} ]]; then
