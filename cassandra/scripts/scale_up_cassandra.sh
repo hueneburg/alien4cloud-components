@@ -1,6 +1,6 @@
 #! /bin/bash
 
-echo configuring > /var/log/armin_install
+echo scaling >> /var/log/armin_install
 
 ENTRY=${ENTRYPOINT}
 
