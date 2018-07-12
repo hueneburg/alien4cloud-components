@@ -20,8 +20,10 @@ sudo sed -i "s/127.0.0.1/${hostname}/g" /etc/cassandra/cassandra.yaml
 sudo sed -i "s/localhost/${hostname}/g" /etc/cassandra/cassandra.yaml
 
 echo configuring >> ~/armin_install
+echo scaling >> ~/armin_install
+echo ${entrypoint} >> ~/armin_install
 
-ENTRY=${ENTRYPOINT}
+ENTRY=${entrypoint}
 
 if [[ -z ${ENTRY} ]]; then
   exit

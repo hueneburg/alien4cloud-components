@@ -1,8 +1,9 @@
 #! /bin/bash
 
-echo scaling >> /var/log/armin_install
+echo scaling >> ~/armin_install
+echo ${entrypoint} >> ~/armin_install
 
-ENTRY=${ENTRYPOINT}
+ENTRY=${entrypoint}
 
 if [[ -z ${ENTRY} ]]; then
   exit
