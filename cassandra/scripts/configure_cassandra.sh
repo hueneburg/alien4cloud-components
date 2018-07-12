@@ -29,6 +29,12 @@ if [[ -z ${ENTRY} ]]; then
   exit
 fi
 
+echo still >> ~/armin_install
+
 hostname=$(hostname -i | awk '{ print $1 }')
 
+echo hostname >> ~/armin_install
+
 sudo sed -i -E "s/- seeds: .*/- seeds: \"${ENTRY}\,${hostname}"/" /etc/cassandra/cassandra.yaml
+
+echo "done" >> ~/armin_install
