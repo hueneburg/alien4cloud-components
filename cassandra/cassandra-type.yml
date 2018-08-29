@@ -18,7 +18,7 @@ node_types:
       on a specific attached volume.
     requirements:
       - host:
-          capability: tosca.capabilities.Compute
+          capability: tosca.nodes.Compute
           node: tosca.nodes.Compute
           relationship: tosca.relationships.HostedOn
           occurrences: [1, 20]
