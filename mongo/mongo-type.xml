@@ -1,0 +1,70 @@
+tosca_definitions_version: alien_dsl_1_4_0
+
+template_name: mongo-type
+template_version: 1.4.35-SNAPSHOT
+template_author: alien4cloud
+
+imports:
+  - tosca-normative-types:1.0.0-ALIEN14
+
+description: MongoDB NoSQL installation on a specific mounted volume path. TODO use dependencies to volume to make it more TOSCA
+
+node_types:
+
+  xyz.hueneburg.nodes.MongoDB:
+    derived_from: tosca.nodes.Database
+    description: >
+      A node to install MongoDB database without data
+      on a specific attached volume.
+    requirements:
+      - host:
+          capability: tosca.capabilities.Container
+          node: tosca.nodes.Compute
+          relationship: tosca.relationships.HostedOn
+          occurrences: [1, 20]
+          node_filter:
+            capabilities:
+              - tosca.capabilities.OperatingSystem:
+                  properties:
+                    - type: { equal: linux }
+                    - architecture: { equal: x86_64 }
+                    - distribution: { valid_values: [ ubuntu ] }
+    capabilities:
+      database_endpoint:
+        type: xyz.hueneburg.capabilities.MongoDBDatabaseEndpoit
+    tags:
+      icon: /images/index.jpg
+    properties:
+      name:
+        type: string
+        required: true
+        description: The logical name of the database cluster.
+      entrypoint:
+        type: string
+        required: false
+        description: If you are scaling up, set this variable to one address of already existing nodes. It is a comma separated list.
+    interfaces:
+      Standard:
+        create:
+          implementation: scripts/install_mongo.sh
+        configure: 
+          inputs:
+            name: { get_property: [SELF, name] }
+            entrypoint: { get_property: [SELF, entrypoint] }
+          implementation: scripts/configure_mongo.sh
+        start:
+          implementation: scripts/start_mongo.sh
+        scale_up:
+          inputs:
+            entrypoint: { get_property: [SELF, entrypoint] }
+          implementation: scripts/scale_up_mongo.sh
+        scale_down:
+          inputs:
+            entrypoint: { get_property: [SELF, entrypoint] }
+          implementation: scripts/scale_down_mongo.sh
+
+
+
+capability_types:
+  xyz.hueneburg.capabilities.MongoDBDatabaseEndpoit:
+      derived_from: tosca.capabilities.Endpoint.Database
