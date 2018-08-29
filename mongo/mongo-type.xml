@@ -1,7 +1,7 @@
 tosca_definitions_version: alien_dsl_1_4_0
 
 template_name: mongo-type
-template_version: 1.4.35-SNAPSHOT
+template_version: 1.0.0-SNAPSHOT
 template_author: alien4cloud
 
 imports:
@@ -32,17 +32,15 @@ node_types:
     capabilities:
       database_endpoint:
         type: xyz.hueneburg.capabilities.MongoDBDatabaseEndpoit
-    tags:
-      icon: /images/index.jpg
     properties:
       name:
         type: string
         required: true
         description: The logical name of the database cluster.
-      entrypoint:
+      ENTRYPOINT:
         type: string
         required: false
-        description: If you are scaling up, set this variable to one address of already existing nodes. It is a comma separated list.
+        description: If you are scaling up, set this variable to the address of the first node.
     interfaces:
       Standard:
         create:
@@ -50,17 +48,17 @@ node_types:
         configure: 
           inputs:
             name: { get_property: [SELF, name] }
-            entrypoint: { get_property: [SELF, entrypoint] }
+            ENTRYPOINT: { get_property: [SELF, ENTRYPOINT] }
           implementation: scripts/configure_mongo.sh
         start:
           implementation: scripts/start_mongo.sh
         scale_up:
           inputs:
-            entrypoint: { get_property: [SELF, entrypoint] }
+            ENTRYPOINT: { get_property: [SELF, ENTRYPOINT] }
           implementation: scripts/scale_up_mongo.sh
         scale_down:
           inputs:
-            entrypoint: { get_property: [SELF, entrypoint] }
+            ENTRYPOINT: { get_property: [SELF, ENTRYPOINT] }
           implementation: scripts/scale_down_mongo.sh
 
 
